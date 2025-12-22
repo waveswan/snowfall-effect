@@ -31,7 +31,6 @@
       <label>Opacity min: <input id="cfg-opacity-min" type="number" step="0.1" value="1" /></label>
       <label>Opacity max: <input id="cfg-opacity-max" type="number" step="0.1" value="1" /></label>
       <div style="display:flex;gap:6px;">
-        <button id="apply">Apply</button>
         <button id="reset">Reset</button>
       </div>
       <div style="display:flex;gap:6px;">
@@ -56,7 +55,6 @@
 
     const toggle = document.getElementById('toggle');
     const destroy = document.getElementById('destroy');
-    const apply = document.getElementById('apply');
     const reset = document.getElementById('reset');
 
     function readConfigFromForm() {
@@ -70,11 +68,6 @@
         opacity: [Number(document.getElementById('cfg-opacity-min').value), Number(document.getElementById('cfg-opacity-max').value)]
       };
     }
-
-    apply.addEventListener('click', () => {
-      const cfg = readConfigFromForm();
-      snowfall.updateConfig(cfg);
-    });
 
     // live update on inputs
     document.querySelectorAll('.controls input').forEach(i => {
