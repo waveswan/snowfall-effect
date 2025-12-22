@@ -3,59 +3,32 @@
 Lightweight vanilla JavaScript library for creating a realistic falling snow effect on websites.
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
-
+![Size](https://img.shields.io/badge/size-~6KB-orange)
 
 ## Demo
 
-Open `demo/index.html` in a browser or online demo is available at: https://waveswan.github.io/snowfall-effect/
-
-## Features
-
-- 🎯 Zero dependencies — pure JavaScript
-- ⚡ High performance — rendering via Canvas API
-- 🎨 Full customization — color, size, speed, wind, and count
-- 📱 Responsive — automatically adapts to viewport size
-- 🔧 Simple API — easy to integrate and control
-
----
+Online demo is available at: https://waveswan.github.io/snowfall-effect/
 
 ## Installation
 
-Clone the repository:
-
-```bash
-git clone <repository-url>
-cd snowfall-effect
-```
-
-To preview the demo locally you can use `http-server` via `npx`:
-
-```bash
-npx http-server demo -c-1 -p 8080
-# then open http://localhost:8080
-```
+Clone the repository.
 
 ## Quick start
 
-Use the ES module directly in HTML (see `demo/index.html`):
+Open `demo/index.html` in a browser.
 
 ```html
 <script type="module">
   import { createSnowfall } from './src/snowfall.js';
 
   document.addEventListener('DOMContentLoaded', () => {
-    const snowfall = createSnowfall({ snowflakeCount: 200 });
+    const snowfall = createSnowfall({ 
+        snowflakeCount: 200
+    });
     window.snowfall = snowfall; // optional for debugging
   });
 </script>
 ```
-
-## API
-
-- `createSnowfall(config)` — creates the effect and returns a `SnowfallEffect` instance.
-- `SnowfallEffect.play()` — start the animation.
-- `SnowfallEffect.pause()` — pause the animation.
-- `SnowfallEffect.destroy()` — remove DOM and stop the animation.
 
 ## Options (config)
 
@@ -69,19 +42,39 @@ You can pass a configuration object to `createSnowfall(config)` or call `snowfal
 - `changeFrequency` — how often targets change (in frames, default: `200`)
 - `rotationSpeed` — rotation speed range `[min, max]` (default: `[-1, 1]`)
 - `opacity` — opacity range `[min, max]` (default: `[1, 1]`)
+ - `opacity` — opacity range `[min, max]` (default: `[1, 1]`)
+ - `zIndex` — CSS `z-index` applied to the wrapper element (default: `99999`). Use this to place the snowfall above or below other elements.
+ - `anchorId` — optional `id` of an element after which the snowfall wrapper will be inserted. If not provided, the script inserts after the page `footer` or the last element. Example: `anchorId: 'header'` will insert wrapper after element with `id="header"`.
+ - `snowflakeCount` — number of snowflakes (default: `250`)
+ - `color` — snowflake color (default: `"#dee4fd"`)
+ - `radius` — size range `[min, max]` (default: `[0.5, 1.6]`)
+ - `speed` — fall speed range `[min, max]` (default: `[0.5, 2]`)
+ - `wind` — wind force range `[min, max]` (default: `[-0.5, 4]`)
+ - `changeFrequency` — how often targets change (in frames, default: `250`)
+ - `rotationSpeed` — rotation speed range `[min, max]` (default: `[-1, 1]`)
+ - `opacity` — opacity range `[min, max]` (default: `[1, 1]`)
+ - `zIndex` — CSS `z-index` applied to the wrapper element (default: `99999`). Use this to place the snowfall above or below other elements.
+ - `anchorId` — optional `id` of an element after which the snowfall wrapper will be inserted. If not provided, the script inserts after the page `footer` or the last element. Example: `anchorId: 'header'` will insert wrapper after element with `id="header"`.
 
 Example:
 
 ```js
 createSnowfall({
-  snowflakeCount: 200,
+  snowflakeCount: 250,
   color: '#ffffff',
-  radius: [0.5, 2],
+  radius: [0.5, 1.6],
   speed: [0.5, 2],
-  wind: [-0.5, 1.5],
-  changeFrequency: 180
+  wind: [-0.5, 4],
+  changeFrequency: 250
 });
 ```
+## API
+
+- `createSnowfall(config)` — creates the effect and returns a `SnowfallEffect` instance.
+- `SnowfallEffect.play()` — start the animation.
+- `SnowfallEffect.pause()` — pause the animation.
+- `SnowfallEffect.destroy()` — remove DOM and stop the animation.
+
 
 ## License
 

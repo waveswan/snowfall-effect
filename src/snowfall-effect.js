@@ -20,16 +20,16 @@ const defaultConfig = {
   changeFrequency: 200,
   rotationSpeed: [-1, 1],
   opacity: [1, 1],
-  snowflakeCount: 150
+  snowflakeCount: 150,
+  zIndex: 99999,
+  anchorId: null
 };
 
 class Snowflake {
   constructor(canvas, config = {}) {
     this.config = { ...defaultConfig, ...config };
     this.framesSinceLastUpdate = 0;
-
     const { radius, wind, speed, rotationSpeed, opacity } = this.config;
-
     this.params = {
       x: Math.random() * canvas.offsetWidth,
       y: randomRange(-canvas.offsetHeight, 0),
@@ -53,20 +53,15 @@ class Snowflake {
 
   update(canvasWidth, canvasHeight, delta = 1) {
     const p = this.params;
-
     p.x = (p.x + p.wind * delta) % (canvasWidth + 2 * p.radius);
     if (p.x > canvasWidth + p.radius) p.x = -p.radius;
     if (p.x < -p.radius) p.x = canvasWidth + p.radius;
-
     p.y = (p.y + p.speed * delta) % (canvasHeight + 2 * p.radius);
     if (p.y > canvasHeight + p.radius) p.y = -p.radius;
-
     p.rotation = (p.rotation + p.rotationSpeed) % 360;
-
     p.speed = lerp(p.speed, p.nextSpeed, 0.01);
     p.wind = lerp(p.wind, p.nextWind, 0.01);
     p.rotationSpeed = lerp(p.rotationSpeed, p.nextRotationSpeed, 0.01);
-
     this.framesSinceLastUpdate++;
     if (this.framesSinceLastUpdate > this.config.changeFrequency) {
       this.updateTargetParams();
@@ -88,25 +83,20 @@ class SnowfallEffect {
     this.snowflakes = [];
     this.lastUpdate = Date.now();
     this.animationFrame = null;
-
     for (let i = 0; i < this.config.snowflakeCount; i++) {
       this.snowflakes.push(new Snowflake(canvas, this.config));
     }
-
     this.play();
   }
 
   render(delta = 1) {
     const { ctx, canvas, snowflakes } = this;
     const { offsetWidth, offsetHeight } = canvas;
-
     for (const snowflake of snowflakes) {
       snowflake.update(offsetWidth, offsetHeight, delta);
     }
-
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, offsetWidth, offsetHeight);
-
     ctx.beginPath();
     for (const snowflake of snowflakes) {
       ctx.globalAlpha = snowflake.params.opacity;
@@ -121,10 +111,8 @@ class SnowfallEffect {
     const now = Date.now();
     const elapsed = now - this.lastUpdate;
     this.lastUpdate = now;
-
     const delta = Math.max(1, elapsed / FRAME_TIME);
     this.render(delta);
-
     this.animationFrame = requestAnimationFrame(() => this.loop());
   }
 
@@ -144,7 +132,6 @@ class SnowfallEffect {
 
   updateConfig(newConfig) {
     this.config = { ...this.config, ...newConfig };
-
     const diff = this.config.snowflakeCount - this.snowflakes.length;
     if (diff > 0) {
       for (let i = 0; i < diff; i++) {
@@ -164,55 +151,48 @@ class SnowfallEffect {
 }
 
 function createSnowfall(config = {}) {
-  const footer = document.querySelector('footer') || document.body.lastElementChild;
-
+  const anchor = (config && config.anchorId)
+    ? document.getElementById(config.anchorId)
+    : (document.querySelector('footer') || document.body.lastElementChild);
   const wrapper = document.createElement('div');
-  wrapper.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; z-index: 99999; pointer-events: none; overflow: hidden;';
+  wrapper.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; pointer-events: none; overflow: hidden;';
+  const wrapperZ = (config && typeof config.zIndex !== 'undefined') ? config.zIndex : defaultConfig.zIndex;
+  wrapper.style.zIndex = String(wrapperZ);
   wrapper.setAttribute('data-snowfall-wrapper', 'true');
-
   const canvas = document.createElement('canvas');
   canvas.setAttribute('data-testid', 'SnowfallCanvas');
   canvas.style.cssText = 'pointer-events: none; background-color: transparent; position: absolute; top: 0; left: 0; width: 100%; height: 100%;';
-
   wrapper.appendChild(canvas);
-
-  if (footer && footer.parentNode) {
-    if (footer.nextSibling) {
-      footer.parentNode.insertBefore(wrapper, footer.nextSibling);
+  if (anchor && anchor.parentNode) {
+    if (anchor.nextSibling) {
+      anchor.parentNode.insertBefore(wrapper, anchor.nextSibling);
     } else {
-      footer.parentNode.appendChild(wrapper);
+      anchor.parentNode.appendChild(wrapper);
     }
   } else {
     document.body.appendChild(wrapper);
   }
-
   function updateSize() {
     const height = window.innerHeight;
     wrapper.style.height = height + 'px';
     canvas.width = window.innerWidth;
     canvas.height = height;
   }
-
   updateSize();
-
   const snowfall = new SnowfallEffect(canvas, config);
   snowfall.wrapper = wrapper;
-
   const resizeHandler = () => updateSize();
   window.addEventListener('resize', resizeHandler);
-
   const originalDestroy = snowfall.destroy.bind(snowfall);
   snowfall.destroy = function () {
     window.removeEventListener('resize', resizeHandler);
     originalDestroy();
   };
-
   return snowfall;
 }
 
 export { SnowfallEffect, Snowflake, createSnowfall };
 
-// Attach to window for non-module usage
 if (typeof window !== 'undefined') {
   window.createSnowfall = createSnowfall;
   window.SnowfallEffect = SnowfallEffect;
