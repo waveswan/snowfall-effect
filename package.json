@@ -1,0 +1,14 @@
+{
+  "name": "snowfall-effect",
+  "version": "0.1.0",
+  "description": "Легковесная vanilla JS библиотека для эффекта снега на сайте",
+  "main": "src/snowfall.js",
+  "type": "module",
+  "scripts": {
+    "start": "npx http-server demo -c-1 -p 8080",
+    "preview": "npx http-server demo -c-1 -p 8080"
+  },
+  "keywords": ["snow", "snowfall", "canvas", "animation"],
+  "author": "Dimitrii",
+  "license": "MIT"
+}
