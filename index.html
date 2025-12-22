@@ -37,6 +37,7 @@
       <label>Opacity max: <input id="cfg-opacity-max" type="number" step="0.1" value="1" /></label>
         <label>Z-index: <input id="cfg-zindex" type="number" step="1" value="99999" /></label>
         <label>Insert after element id (anchor): <input id="cfg-anchor-id" type="text" placeholder="optional id" /></label>
+        <label>Direction: <select id="cfg-direction"><option value="down">down</option><option value="up">up</option></select></label>
       <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
         <button id="preset-snow">Snow</button>
         <button id="preset-rain">Rain</button>
@@ -90,7 +91,8 @@
         changeFrequency: Number(document.getElementById('cfg-changeFrequency').value) || 200,
           opacity: [Number(document.getElementById('cfg-opacity-min').value), Number(document.getElementById('cfg-opacity-max').value)],
           zIndex: Number(document.getElementById('cfg-zindex').value) || 99999,
-          anchorId: document.getElementById('cfg-anchor-id').value || null
+          anchorId: document.getElementById('cfg-anchor-id').value || null,
+          direction: document.getElementById('cfg-direction') ? document.getElementById('cfg-direction').value : 'down'
       };
     }
 
@@ -153,6 +155,7 @@
         wind: [-0.5, 4],
         changeFrequency: 250,
         opacity: [1, 1],
+        direction: 'down',
         zIndex: 99999,
         anchorId: null
       },
@@ -163,18 +166,20 @@
         speed: [6, 26],
         wind: [-0.1, 0],
         changeFrequency: 250,
-        opacity: [0.2, 0.6],
+        opacity: [0.2, 3],
+        direction: 'down',
         zIndex: 99999,
         anchorId: null
       },
       fire: {
         snowflakeCount: 600,
         color: '#ff4b2b',
-        radius: [0.2, 1.2],
+        radius: [0.2, 3],
         speed: [2, 8],
         wind: [-0.2, 0.2],
         changeFrequency: 200,
         opacity: [0.4, 0.95],
+        direction: 'up',
         zIndex: 99999,
         anchorId: null
       },
@@ -186,6 +191,7 @@
         wind: [-0.3, 0.3],
         changeFrequency: 220,
         opacity: [0.35, 0.9],
+        direction: 'up',
         zIndex: 99999,
         anchorId: null
       }
@@ -246,6 +252,7 @@
       parts.push(`  opacity: [${cfg.opacity[0]}, ${cfg.opacity[1]}],`);
       if (cfg.zIndex !== undefined) parts.push(`  zIndex: ${cfg.zIndex},`);
       if (cfg.anchorId) parts.push(`  anchorId: '${cfg.anchorId}',`);
+      if (cfg.direction) parts.push(`  direction: '${cfg.direction}',`);
       parts.push('});');
       document.getElementById('code-snippet').textContent = parts.join('\n');
     }

@@ -14,15 +14,16 @@ function lerp(start, end, amount) {
 
 const defaultConfig = {
   color: '#dee4fd',
-  radius: [0.5, 3],
-  speed: [1, 3],
-  wind: [-0.5, 2],
-  changeFrequency: 200,
+  radius: [0.5, 1.6],
+  speed: [0.5, 2],
+  wind: [-0.5, 4],
+  changeFrequency: 250,
   rotationSpeed: [-1, 1],
   opacity: [1, 1],
-  snowflakeCount: 150,
+  snowflakeCount: 250,
   zIndex: 99999,
-  anchorId: null
+  anchorId: null,
+  direction: 'down' // 'down' or 'up' — controls vertical movement direction
 };
 
 class Snowflake {
@@ -32,7 +33,9 @@ class Snowflake {
     const { radius, wind, speed, rotationSpeed, opacity } = this.config;
     this.params = {
       x: Math.random() * canvas.offsetWidth,
-      y: randomRange(-canvas.offsetHeight, 0),
+      y: (this.config.direction === 'up')
+        ? randomRange(canvas.offsetHeight, canvas.offsetHeight * 2)
+        : randomRange(-canvas.offsetHeight, 0),
       rotation: randomRange(0, 360),
       radius: randomRange(...radius),
       speed: randomRange(...speed),
@@ -56,8 +59,13 @@ class Snowflake {
     p.x = (p.x + p.wind * delta) % (canvasWidth + 2 * p.radius);
     if (p.x > canvasWidth + p.radius) p.x = -p.radius;
     if (p.x < -p.radius) p.x = canvasWidth + p.radius;
-    p.y = (p.y + p.speed * delta) % (canvasHeight + 2 * p.radius);
-    if (p.y > canvasHeight + p.radius) p.y = -p.radius;
+    const dir = this.config.direction === 'up' ? -1 : 1;
+    p.y = p.y + p.speed * delta * dir;
+    if (dir > 0) {
+      if (p.y > canvasHeight + p.radius) p.y = -p.radius;
+    } else {
+      if (p.y < -p.radius) p.y = canvasHeight + p.radius;
+    }
     p.rotation = (p.rotation + p.rotationSpeed) % 360;
     p.speed = lerp(p.speed, p.nextSpeed, 0.01);
     p.wind = lerp(p.wind, p.nextWind, 0.01);
