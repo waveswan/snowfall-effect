@@ -1,9 +1,13 @@
 # ❄️ Snowfall Effect
-# ❄️ Snowfall Effect
 
 Lightweight vanilla JavaScript library for creating a realistic falling snow effect on websites.
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
+
+
+## Demo
+
+Open `demo/index.html` in a browser or online demo is available at: https://waveswan.github.io/snowfall-effect/
 
 ## Features
 
@@ -79,36 +83,8 @@ createSnowfall({
 });
 ```
 
-## Demo
-
-Open `demo/index.html` in a browser or run `npx http-server demo -c-1 -p 8080`.
-
-Online demo is available at: https://waveswan.github.io/snowfall-effect/
-
 ## License
 
 This project is licensed under the MIT License — see `LICENSE`.
 
 - `opacity` — прозрачность снежинок `[min, max]` (по умолчанию `[1, 1]`)
-
-Пример:
-
-```js
-createSnowfall({
-  snowflakeCount: 200,
-  color: '#ffffff',
-  radius: [0.5, 2],
-  speed: [0.5, 2],
-  wind: [-0.5, 1.5],
-  changeFrequency: 180
-});
-```
-
-## Демонстрация
-
-Откройте `demo/index.html` в браузере или запустите `npx http-server demo -c-1 -p 8080`.
-Онлайн-демо доступно по адресу: https://waveswan.github.io/snowfall-effect/
-
-## Лицензия
-
-Проект распространяется под лицензией MIT — см. файл `LICENSE`.
