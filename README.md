@@ -86,5 +86,3 @@ createSnowfall({
 ## License
 
 This project is licensed under the MIT License — see `LICENSE`.
-
-- `opacity` — прозрачность снежинок `[min, max]` (по умолчанию `[1, 1]`)
