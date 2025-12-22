@@ -107,12 +107,12 @@
       updateSnippet(cfg);
     }
 
-    document.querySelectorAll('.controls input').forEach(i => {
+    document.querySelectorAll('.controls input, .controls select').forEach(i => {
       i.addEventListener('input', () => applyConfigLive());
     });
 
     // also update on change events
-    document.querySelectorAll('.controls input').forEach(i => i.addEventListener('change', () => applyConfigLive()));
+    document.querySelectorAll('.controls input, .controls select').forEach(i => i.addEventListener('change', () => applyConfigLive()));
 
     // keep currentAnchor for optional logic
     let currentAnchor = null;
