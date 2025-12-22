@@ -1,32 +1,39 @@
 # ❄️ Snowfall Effect
+# ❄️ Snowfall Effect
 
-Легковесная JavaScript библиотека для создания реалистичного эффекта падающего снега на веб-сайтах — без зависимостей, чистый vanilla JS.
+Lightweight vanilla JavaScript library for creating a realistic falling snow effect on websites.
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-## ✨ Особенности
+## Features
 
-- 🎯 Без зависимостей — чистый vanilla JavaScript
-- ⚡ Высокая производительность — отрисовка через Canvas API
-- 🎨 Полная кастомизация — цвет, размер, скорость, ветер и количество снежинок
-- 📱 Адаптивный дизайн — автоматическая подстройка под размер экрана
-- 🔧 Простое API — лёгкая интеграция и управление
+- 🎯 Zero dependencies — pure JavaScript
+- ⚡ High performance — rendering via Canvas API
+- 🎨 Full customization — color, size, speed, wind, and count
+- 📱 Responsive — automatically adapts to viewport size
+- 🔧 Simple API — easy to integrate and control
 
 ---
 
-## Установка
+## Installation
 
-Клонируйте репозиторий:
+Clone the repository:
 
 ```bash
-git clone <URL-репозитория>
+git clone <repository-url>
 cd snowfall-effect
 ```
 
+To preview the demo locally you can use `http-server` via `npx`:
 
-## Быстрый старт
+```bash
+npx http-server demo -c-1 -p 8080
+# then open http://localhost:8080
+```
 
-Используйте ES-модуль прямо в HTML (см. `demo/index.html`):
+## Quick start
+
+Use the ES module directly in HTML (see `demo/index.html`):
 
 ```html
 <script type="module">
@@ -34,37 +41,74 @@ cd snowfall-effect
 
   document.addEventListener('DOMContentLoaded', () => {
     const snowfall = createSnowfall({ snowflakeCount: 200 });
-    window.snowfall = snowfall; // опционально для отладки
+    window.snowfall = snowfall; // optional for debugging
   });
 </script>
 ```
 
 ## API
 
-- `createSnowfall(config)` — создаёт эффект и возвращает экземпляр `SnowfallEffect`.
-- `SnowfallEffect.play()` — запустить анимацию.
-- `SnowfallEffect.pause()` — поставить на паузу.
-- `SnowfallEffect.destroy()` — удалить DOM и остановить анимацию.
+- `createSnowfall(config)` — creates the effect and returns a `SnowfallEffect` instance.
+- `SnowfallEffect.play()` — start the animation.
+- `SnowfallEffect.pause()` — pause the animation.
+- `SnowfallEffect.destroy()` — remove DOM and stop the animation.
+
+## Options (config)
+
+You can pass a configuration object to `createSnowfall(config)` or call `snowfall.updateConfig(config)` to change options at runtime.
+
+- `snowflakeCount` — number of snowflakes (default: `150`)
+- `color` — snowflake color (default: `"#dee4fd"`)
+- `radius` — size range `[min, max]` (default: `[0.5, 3]`)
+- `speed` — fall speed range `[min, max]` (default: `[1, 3]`)
+- `wind` — wind force range `[min, max]` (default: `[-0.5, 2]`)
+- `changeFrequency` — how often targets change (in frames, default: `200`)
+- `rotationSpeed` — rotation speed range `[min, max]` (default: `[-1, 1]`)
+- `opacity` — opacity range `[min, max]` (default: `[1, 1]`)
+
+Example:
+
+```js
+createSnowfall({
+  snowflakeCount: 200,
+  color: '#ffffff',
+  radius: [0.5, 2],
+  speed: [0.5, 2],
+  wind: [-0.5, 1.5],
+  changeFrequency: 180
+});
+```
+
+## Demo
+
+Open `demo/index.html` in a browser or run `npx http-server demo -c-1 -p 8080`.
+
+Online demo is available at: https://waveswan.github.io/snowfall-effect/
+
+## License
+
+This project is licensed under the MIT License — see `LICENSE`.
+
+- `opacity` — прозрачность снежинок `[min, max]` (по умолчанию `[1, 1]`)
+
+Пример:
+
+```js
+createSnowfall({
+  snowflakeCount: 200,
+  color: '#ffffff',
+  radius: [0.5, 2],
+  speed: [0.5, 2],
+  wind: [-0.5, 1.5],
+  changeFrequency: 180
+});
+```
 
 ## Демонстрация
 
 Откройте `demo/index.html` в браузере или запустите `npx http-server demo -c-1 -p 8080`.
+Онлайн-демо доступно по адресу: https://waveswan.github.io/snowfall-effect/
 
 ## Лицензия
 
 Проект распространяется под лицензией MIT — см. файл `LICENSE`.
-# ❄️ Snowfall Effect
-
-Легковесная JavaScript библиотека для создания реалистичного эффекта падающего снега на веб-сайтах.  Без зависимостей, чистый vanilla JS.
-
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Size](https://img.shields.io/badge/size-~5KB-orange)
-
-## ✨ Особенности
-
-- 🎯 **Без зависимостей** - чистый vanilla JavaScript
-- ⚡ **Высокая производительность** - оптимизированная отрисовка через Canvas API
-- 🎨 **Полная кастомизация** - настройка цвета, размера, скорости и количества снежинок
-- 📱 **Адаптивный дизайн** - автоматическая подстройка под размер экрана
-- 🔧 **Простое API** - легкая интеграция и управление
-- ♿ **Не блокирует взаимодействие** - `pointer-events: none` для всех элементов
