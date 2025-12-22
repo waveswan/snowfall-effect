@@ -45,16 +45,6 @@ You can pass a configuration object to `createSnowfall(config)` or call `snowfal
  - `opacity` — opacity range `[min, max]` (default: `[1, 1]`)
  - `zIndex` — CSS `z-index` applied to the wrapper element (default: `99999`). Use this to place the snowfall above or below other elements.
  - `anchorId` — optional `id` of an element after which the snowfall wrapper will be inserted. If not provided, the script inserts after the page `footer` or the last element. Example: `anchorId: 'header'` will insert wrapper after element with `id="header"`.
- - `snowflakeCount` — number of snowflakes (default: `250`)
- - `color` — snowflake color (default: `"#dee4fd"`)
- - `radius` — size range `[min, max]` (default: `[0.5, 1.6]`)
- - `speed` — fall speed range `[min, max]` (default: `[0.5, 2]`)
- - `wind` — wind force range `[min, max]` (default: `[-0.5, 4]`)
- - `changeFrequency` — how often targets change (in frames, default: `250`)
- - `rotationSpeed` — rotation speed range `[min, max]` (default: `[-1, 1]`)
- - `opacity` — opacity range `[min, max]` (default: `[1, 1]`)
- - `zIndex` — CSS `z-index` applied to the wrapper element (default: `99999`). Use this to place the snowfall above or below other elements.
- - `anchorId` — optional `id` of an element after which the snowfall wrapper will be inserted. If not provided, the script inserts after the page `footer` or the last element. Example: `anchorId: 'header'` will insert wrapper after element with `id="header"`.
 
 Example:
 
