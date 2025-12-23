@@ -53,7 +53,6 @@
 
     <div class="presets" style="margin-top:8px">
       <button id="preset-snow">Snow</button>
-      <button id="preset-ash">Ash</button>
       <button id="preset-fireflies">Fireflies</button>
       <button id="preset-matrix">Matrix</button>
       <button id="preset-fire">Fire</button>
@@ -87,18 +86,6 @@
         opacity: [1, 1],
         zIndex: 99999,
         direction: 'down',
-        anchorId: null
-      },
-      ash: {
-        snowflakeCount: 180,
-        color: '#b0b0b0',
-        radius: [0.6, 1.2],
-        speed: [0.3, 1.2],
-        wind: [-0.3, 0.7],
-        changeFrequency: 300,
-        opacity: [0.2, 0.9],
-        zIndex: 99999,
-        direction: 'up',
         anchorId: null
       },
       fireflies: {
@@ -231,7 +218,6 @@
 
     // wire preset buttons
     document.getElementById('preset-snow').addEventListener('click', () => applyPreset('snow'));
-    document.getElementById('preset-ash').addEventListener('click', () => applyPreset('ash'));
     document.getElementById('preset-fireflies').addEventListener('click', () => applyPreset('fireflies'));
     document.getElementById('preset-matrix').addEventListener('click', () => applyPreset('matrix'));
     document.getElementById('preset-fire').addEventListener('click', () => applyPreset('fire'));
