@@ -3,7 +3,7 @@
 Lightweight vanilla JavaScript library for creating a realistic falling snow effect on websites.
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Size](https://img.shields.io/badge/size-~6KB-orange)
+![Size](https://img.shields.io/badge/size-~7KB-orange)
 
 ## Demo
 
@@ -15,7 +15,7 @@ Clone the repository.
 
 ## Quick start
 
-Open `demo/index.html` in a browser.
+Open `docs/index.html` in a browser.
 
 ```html
 <script type="module">
