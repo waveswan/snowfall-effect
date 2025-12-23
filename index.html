@@ -1,18 +1,20 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>❄️ Snowfall Effect — Demo</title>
   <style>
     :root{--panel:rgba(0,0,0,0.45);--accent:#cfe6ff}
-    body{margin:0;font-family:system-ui,-apple-system,Arial;background:linear-gradient(#020911,#03051a);color:#fff}
+    html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Arial;background:linear-gradient(#020911,#03051a);color:#fff;min-height:100vh}
     .content{padding:28px 20px 120px}
     h1{margin:0 0 8px}
     .meta{color:#cfe6ff;margin-bottom:18px}
     .controls{position:fixed;right:12px;top:12px;background:var(--panel);padding:12px;border-radius:10px;width:260px;max-height:80vh;overflow:auto}
     .controls label{display:block;font-size:13px;margin-bottom:8px}
-    .controls input,.controls select{width:100%;box-sizing:border-box;padding:6px;border-radius:6px;border:0;background:rgba(255,255,255,0.04);color:#fff}
+    .controls input,.controls select{box-sizing:border-box;padding:6px;border-radius:6px;border:0;background:rgba(255,255,255,0.04);color:#fff}
+    .controls input[type="color"]{height:40px;padding:6px}
     .controls .presets{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
     .controls button{padding:8px 10px;background:#133046;color:var(--accent);border:0;border-radius:8px;cursor:pointer}
     pre#code-snippet{background:rgba(0,0,0,0.35);padding:8px;border-radius:6px;font-size:12px;color:#eef;max-height:120px;overflow:auto}
@@ -27,10 +29,10 @@
   </style>
 </head>
 <body>
-  <main class="content">
+    <main class="content">
     <h1>❄️ Snowfall Effect — Demo</h1>
-    <p class="meta">Пример интеграции эффекта частиц. Репозиторий: <a href="https://github.com/waveswan/snowfall-effect/" target="_blank" rel="noopener" style="color:#cfe6ff">github.com/waveswan/snowfall-effect</a></p>
-    <p style="max-width:720px;color:#d6e8ff;line-height:1.4">Используйте пресеты, редактируйте параметры и копируйте сниппет для вставки в проект. На мобильных устройствах UI автоматически упрощается для экономии батареи.</p>
+    <p class="meta">Example integration of the particle effect. Repository: <a href="https://github.com/waveswan/snowfall-effect/" target="_blank" rel="noopener" style="color:#cfe6ff">github.com/waveswan/snowfall-effect</a></p>
+    <p style="max-width:720px;color:#d6e8ff;line-height:1.4">Use presets, edit parameters, and copy the snippet to paste into your project. On mobile devices the UI is automatically simplified to save battery.</p>
   </main>
 
   <aside class="controls" aria-label="Controls">
@@ -50,13 +52,15 @@
     <label>Direction: <select id="cfg-direction"><option value="down">down</option><option value="up">up</option></select></label>
 
     <div class="presets" style="margin-top:8px">
-      <button id="preset-fireflies">Светлячки</button>
-      <button id="preset-matrix">Матрица</button>
-      <button id="preset-fire">Огонь</button>
-      <button id="preset-rain">Дождь</button>
+      <button id="preset-snow">Snow</button>
+      <button id="preset-ash">Ash</button>
+      <button id="preset-fireflies">Fireflies</button>
+      <button id="preset-matrix">Matrix</button>
+      <button id="preset-fire">Fire</button>
+      <button id="preset-rain">Rain</button>
     </div>
 
-    <div style="display:flex;gap:8px;margin-top:10px">
+    <div style="display:flex;gap:8px;margin-top:20px">
       <button id="toggle">Pause</button>
       <button id="reset">Reset</button>
       <button id="destroy">Restart</button>
@@ -73,6 +77,30 @@
 
     // Presets (desktop values)
     const PRESETS = {
+      snow: {
+        snowflakeCount: 250,
+        color: '#dee4fd',
+        radius: [0.5, 1.6],
+        speed: [0.5, 2],
+        wind: [-0.5, 4],
+        changeFrequency: 250,
+        opacity: [1, 1],
+        zIndex: 99999,
+        direction: 'down',
+        anchorId: null
+      },
+      ash: {
+        snowflakeCount: 180,
+        color: '#b0b0b0',
+        radius: [0.6, 1.2],
+        speed: [0.3, 1.2],
+        wind: [-0.3, 0.7],
+        changeFrequency: 300,
+        opacity: [0.2, 0.9],
+        zIndex: 99999,
+        direction: 'up',
+        anchorId: null
+      },
       fireflies: {
         snowflakeCount: 400,
         color: '#00fdff',
@@ -202,6 +230,8 @@
     }
 
     // wire preset buttons
+    document.getElementById('preset-snow').addEventListener('click', () => applyPreset('snow'));
+    document.getElementById('preset-ash').addEventListener('click', () => applyPreset('ash'));
     document.getElementById('preset-fireflies').addEventListener('click', () => applyPreset('fireflies'));
     document.getElementById('preset-matrix').addEventListener('click', () => applyPreset('matrix'));
     document.getElementById('preset-fire').addEventListener('click', () => applyPreset('fire'));
