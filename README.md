@@ -1,6 +1,6 @@
 # ❄️ Snowfall Effect
 
-Lightweight vanilla JavaScript library for creating a realistic falling snow effect on websites.
+Lightweight JavaScript particle library for snow, rain, fire, embers, ash and other customizable particle effects on websites. Fast, dependency-free, and configurable for use as decorative snowfall or dynamic particle-based visuals like fire and rain.
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Size](https://img.shields.io/badge/size-~7KB-orange)
@@ -58,6 +58,24 @@ createSnowfall({
   changeFrequency: 250
 });
 ```
+ 
+## Beyond Snow — other effects
+
+Although the library defaults to a snowfall look, the renderer is generic: by adjusting the configuration you can create rain, fire/embers, ash, fireflies or other particle effects.
+
+- For rain: increase `speed`, reduce `radius`, and set `wind` to influence horizontal streaks.
+- For fire or embers: use warm colors (`#ff4b2b`, `#ff9a3c`), set `direction: 'up'`, increase `speed` slightly and add variability to `radius` and `opacity`.
+- For ash/smoke: use gray colors, low `speed`, higher `opacity` variance, and `direction: 'up'` for rising motion.
+
+Experiment by changing `color`, `radius`, `speed`, `wind`, `opacity`, and `direction` (up/down). The demo presets include `Snow`, `Fire`, `Fireflies`, `Matrix`, and `Rain` to get you started.
+
+### SEO notes
+
+- Primary keywords to target: "snowfall", "particle effect", "JavaScript particles", "snow effect", "rain effect", "fire particles", "canvas particles".
+- Put the short description above as the first sentence — GitHub and search engines use the top of the README as the page summary.
+- Provide a live demo and clear examples (already included) — pages with demos rank better for developer queries.
+- Consider adding a screenshot/OG image at the project root for better social sharing.
+
 ## API
 
 - `createSnowfall(config)` — creates the effect and returns a `SnowfallEffect` instance.

@@ -1,3 +1,12 @@
+/**
+ * snowfall-effect.js
+ * Simple canvas particle effect
+ *
+ * Author: Wave Swan
+ * License: MIT
+ * Project: https://github.com/waveswan/snowfall-effect
+ */
+
 const TWO_PI = Math.PI * 2;
 const FRAME_TIME = 1000 / 60; // 60 FPS
 
@@ -13,17 +22,17 @@ function lerp(start, end, amount) {
 }
 
 const defaultConfig = {
-  color: '#dee4fd',
-  radius: [0.5, 1.6],
-  speed: [0.5, 2],
-  wind: [-0.5, 4],
-  changeFrequency: 250,
-  rotationSpeed: [-1, 1],
-  opacity: [1, 1],
-  snowflakeCount: 250,
-  zIndex: 99999,
-  anchorId: null,
-  direction: 'down' // 'down' or 'up' — controls vertical movement direction
+  color: '#dee4fd',   // color: fill color used when drawing particles (any valid CSS color)
+  radius: [0.5, 1.6],   // radius: [min, max] radius for each particle in pixels (randomized per flake)
+  speed: [0.5, 2],      // speed: [min, max] vertical speed multiplier (higher = faster movement)
+  wind: [-0.5, 4],      // wind: [min, max] horizontal velocity range applied to each particle
+  changeFrequency: 250, // changeFrequency: number of frames between random target-value updates
+  rotationSpeed: [-1, 1],// rotationSpeed: [min, max] angular velocity range (degrees per frame)
+  opacity: [1, 1],      // opacity: [min, max] per-particle alpha multiplier (0.0 - 1.0+)
+  snowflakeCount: 250,  // snowflakeCount: initial number of particles to create
+  zIndex: 99999,        // zIndex: CSS z-index applied to the wrapper element containing the canvas
+  anchorId: null,       // anchorId: optional DOM element id to insert the wrapper after; if null, appended to body
+  direction: 'down'     // direction: 'down' to fall downwards, 'up' to rise upwards
 };
 
 class Snowflake {
